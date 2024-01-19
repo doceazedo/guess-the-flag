@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+struct FlagImage: View {
+    let image: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Image(image)
+                .clipShape(.buttonBorder)
+                .shadow(radius: 4)
+        }
+    }
+}
+
 struct ContentView: View {
     @State private var countries = ["Brazil", "Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"]
     @State private var correctAnswer = 0
@@ -39,13 +52,9 @@ struct ContentView: View {
                         .font(.title2)
                 }
                 ForEach(0..<3) { i in
-                    Button {
+                    FlagImage(image: countries[i], action: {
                         guessFlag(i)
-                    } label: {
-                        Image(countries[i])
-                            .clipShape(.buttonBorder)
-                            .shadow(radius: 4)
-                    }
+                    })
                 }
             }
             Spacer()
